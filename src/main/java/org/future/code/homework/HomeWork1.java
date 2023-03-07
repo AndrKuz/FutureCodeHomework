@@ -1,5 +1,6 @@
 package org.future.code.homework;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -35,11 +36,59 @@ public class HomeWork1 {
             announce всех встудентов преподавателя
      */
     public static class Student {
-        // Напиши здесь свою реализацию класса Student
+        private String name;
+        private Integer grade;
+
+        public Student(String name, Integer grade) {
+            this.name = name;
+            this.grade = grade;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public Integer getGrade() {
+            return this.grade;
+        }
+
+        public String announce() {
+            return getName() + " учится в " + getGrade() + " классе";
+        }
     }
 
     public static class Teacher {
-        // Напиши здесь свою реализацию класса Teacher
+        private String name;
+        private Student[] students;
+        private int counter;
+
+        public Teacher(String name) {
+            this.name = name;
+            this.students = new Student[30];
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public Student[] getStudents() {
+            return this.students;
+        }
+
+        public void addStudent(Student student) {
+            if (this.counter != 30) {
+                this.students[this.counter] = student;
+                this.counter ++;
+            }
+        }
+
+        public String[] rollCall() {
+            String[] a = new String[counter];
+            for (int i = 0; i < counter; i++) {
+                a[i] = students[i].announce();
+            }
+            return a;
+        }
     }
 
     /*
