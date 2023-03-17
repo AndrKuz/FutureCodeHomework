@@ -22,7 +22,30 @@ import java.util.function.Function;
  *      Если у тебя не выбран JDK17 toList() бдует выдавать ошибку
  */
 public class HomeWork2 {
-
+    public static class LoginValidationException extends Exception {
+        public LoginValidationException() {
+        }
+    }
+    public static void validateLogin(String login) throws LoginValidationException {
+        if (!login.matches("\\w*")) {
+            throw new LoginValidationException();
+        }
+        if (!login.matches(".*[A-Z]+.*")) {
+            throw new LoginValidationException();
+        }
+        if (!login.matches(".*[a-z]+.*")) {
+            throw new LoginValidationException();
+        }
+        if (!login.matches(".*\\d+.*")) {
+            throw new LoginValidationException();
+        }
+        if (!login.matches(".*_+.*")) {
+            throw new LoginValidationException();
+        }
+        if (login.length() > 20) {
+            throw new LoginValidationException();
+        }
+    }
     /**
      * Задание:
      * 1. Создайте вложенный класс LoginValidationException, унаследуйте его от Exception
@@ -38,13 +61,15 @@ public class HomeWork2 {
      *     - если метод validateLogin выбросил ошибку - вернуть false
      */
 
-    public static void validateLogin(String login) {
-        //Место для Вашего кода из пункта 2
-    }
+
 
     public static Boolean isLoginValid(String login) {
-        //Место для Вашего кода из пункта 3
-        return false;
+        try {
+            validateLogin(login);
+            return true;
+        } catch (LoginValidationException e) {
+            return false;
+        }
     }
 
     /*
