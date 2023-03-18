@@ -53,15 +53,81 @@ public class HomeWork5 {
     }
 
     public static class Person {
-        // Напиши здесь свою реализацию класса Person
+        private String name;
+        private Integer protection = 0;
+        private Integer health = 50;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        protected Person(String name, Integer protection, Integer health) {
+            this.name = name;
+            this.protection = protection;
+            this.health = health;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Integer getProtection() {
+            return protection;
+        }
+
+        public Integer getHealth() {
+            return health;
+        }
+
+        public String announce() {
+            return "Person " + name + " имеет характеристики: " + health + " здоровья и " + protection + " защиты";
+        }
+
+        public void takeDamage(Integer damage) throws Exception {
+                if (damage < 0) {
+                    throw new Exception();
+                } else if (damage >= health + protection) {
+                    health = 0;
+                    throw new PersonDead("You are dead");
+                } else {
+                    health -= (damage - protection);
+                }
+        }
+
+        public Integer facePunch(){
+            return 1;
+        }
     }
 
     public static class Mage extends Person{
-        // Напиши здесь свою реализацию класса Mage (не забудь про наследование от Person)
+
+        public Mage(String name) {
+            super(name, 15, 100);
+        }
+        public String announce() {
+            return "Mage " + super.announce();
+        }
+        public void takeDamage(Integer damage) throws Exception {
+            super.takeDamage(damage - getHealth() % 10);
+        }
+        public Integer fireBall() {
+            return 45;
+        }
     }
 
     public static class Archer extends Person{
-        // Напиши здесь свою реализацию класса Archer (не забудь про наследование от Person)
+        public Archer(String name) {
+            super(name, 12, 120);
+        }
+        public String announce() {
+            return "Archer " + super.announce();
+        }
+        public void takeDamage(Integer damage) throws Exception {
+            super.takeDamage(damage + getHealth() % 10);
+        }
+        public Integer shootBow() {
+            return 40 + getHealth() % 10;
+        }
     }
 
     /*
